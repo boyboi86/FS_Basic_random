@@ -1,0 +1,36 @@
+{
+  "name": "Basic_app2",
+  "version": "1.0.0",
+  "description": "Basic app using postgresql/angular/express/node SEAN stack",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "~1.15.1",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.1",
+    "express": "~4.13.4",
+    "jsonwebtoken": "^7.1.9",
+    "lodash": "^3.10.1",
+    "moment": "^2.15.1",
+    "morgan": "~1.7.0",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.1.0",
+    "passport-local": "^1.0.0",
+    "pg": "^6.1.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.24.3",
+    "serve-favicon": "~2.3.0",
+    "webpack": "^1.12.9",
+    "yelp": "^1.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.10.2"
+  },
+  "keywords": [],
+  "author": "boyboi86",
+  "license": "ISC"
+}
