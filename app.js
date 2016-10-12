@@ -7,14 +7,12 @@ const bodyParser = require('body-parser');
 const sequelize = require('sequelize');
 const cors = require('cors');
 const http = require('http');
-const sequelize = require('sequelize');
 
 const db = require('./models/index');
-const users = require('./routes/users');
-const entries = require('./routes/entries');
+const users = require('./routes/user');
+const entries = require('./routes/entry');
 
 const port = process.env.PORT || 3000;
-const config = require('./config');
 
 const app = express();
 const accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
@@ -36,9 +34,12 @@ app.use('/api/entries', entries);
 // });
 
 /*Make life easier but less detailed.. runs server*/
-db.sequelize.sync({force: true})
+db.sequelize.sync()
   .then(function() {
-	http.createServer(app).listen(port, function() {
+	app.listen(port, function() {
 		console.log(`Express listening on port ${port}!`);
 	});
-});
+})
+.catch(function(err){
+  console.error(err);
+})
