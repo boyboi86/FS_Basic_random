@@ -28,26 +28,23 @@ router.get('/:location', function(req, res){
 
 /*REQUIRE AUTH FOR SAVING if EXIST DESTRY OTHERWISE create*/
 router.post('/', requireAuth, function(req, res){
-  // const body = _.pick(req.body, [snippet_text, snippet_image_url, name, url]);
-  const {snippet_text} = req.body
-  const {snippet_image_url} = req.body
-  const {name} = req.body
-  const {url} = req.body
+  const body = _.pick(req.body, ['snippet_text', 'snippet_image_url', 'name', 'url']);
+  const {snippet_text} = body
+  const {snippet_image_url} = body
+  const {name} = body
+  const {url} = body
   const token = jwt.verify(req.headers.authorization, config.secret).sub
   const _token = parseInt(token, 10);
   const details = {
       location_name: name,
-        url: url,
-        displayUrl: snippet_image_url,
-        snippets: snippet_text,
-        userId: _token
-      }
-  db.entries.findOrCreate({
-    where: details
-  })
+      url,
+      displayUrl: snippet_image_url,
+      snippets: snippet_text,
+      userId: _token
+    }
+db.entries.findOrCreate({where: details})
   .then(function(doc){
-    db.entries.create({where: details});
-    return res.status(200).send('item created');
+    res.send('item created');
   })
   .catch(function(err){
     res.json(err);
