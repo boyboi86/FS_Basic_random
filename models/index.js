@@ -11,7 +11,7 @@ db.entries = sequelize.import('./entries');
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-// db.user.belongsToMany(db.entries, { through:'yelp', foreignKey: 'eventId'});
-// db.entries.belongsToMany(db.user, { through:'yelp', foreignKey: 'attend_users'});
+db.entries.belongsTo(db.user);
+
 
 module.exports = db;
