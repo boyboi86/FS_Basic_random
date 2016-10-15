@@ -49,7 +49,31 @@ db.entries.findOrCreate({where: details})
   .catch(function(err){
     res.json(err);
   })
+})
 
+/*DELETE Route for entries but limit placed as a caution, data should not have more than 1 row*/
+router.delete('/', requireAuth, function(req, res){
+  const body = _.pick(req.body, ['snippet_text', 'snippet_image_url', 'name', 'url']);
+  const {snippet_text} = body
+  const {snippet_image_url} = body
+  const {name} = body
+  const {url} = body
+  const token = jwt.verify(req.headers.authorization, config.secret).sub
+  const _token = parseInt(token, 10);
+  const details = {
+      location_name: name,
+      url,
+      displayUrl: snippet_image_url,
+      snippets: snippet_text,
+      userId: _token
+    }
+db.entries.destroy({where: details, limit: 1})
+  .then(function(doc){
+    res.send('item destroyed');
+  })
+  .catch(function(err){
+    res.json(err);
+  })
 })
 
 module.exports = router;
