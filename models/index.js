@@ -11,7 +11,8 @@ db.entries = sequelize.import('./entries');
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.entries.belongsTo(db.user);
+db.entries.belongsTo(db.user, {foreignKey: 'userId'});
+db.user.hasMany(db.entries, {foreignKey: 'userId'});
 
 
 module.exports = db;
